@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AspCoreApi.Models
 {
-    public class User
+    public class Product
     {
         [Key]
         public Guid Id{ get; set; }
         public string Name { get; set; }
-        public string Email{ get; set; }
-        public string Password{ get; set; }
+        public int Quantity{ get; set; }
+        public double Price{ get; set; }
 
-         public List<Product> Products { get; set; }
+        public Guid UserId{ get; set; }
+
+        [JsonIgnore]
+        public User User { get; set; }
     }
 }

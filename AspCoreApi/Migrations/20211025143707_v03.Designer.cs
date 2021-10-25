@@ -3,14 +3,16 @@ using System;
 using AspCoreApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspCoreApi.Migrations
 {
     [DbContext(typeof(AspCoreContext))]
-    partial class AspCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20211025143707_v03")]
+    partial class v03
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

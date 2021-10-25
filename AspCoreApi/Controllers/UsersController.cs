@@ -25,7 +25,22 @@ namespace AspCoreApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+
+           List<User> Users = new List<User>();
+           var usersList = await _context.Users.ToListAsync();
+            
+            foreach (var item in usersList)
+            {
+                var products = await _context.Products.Where(p => p.UserId == item.Id).ToListAsync();
+
+                item.Products = products;
+
+                Users.Add(item);
+            }
+
+
+            return Users;
+
         }
 
         // GET: api/Users/5
@@ -33,6 +48,9 @@ namespace AspCoreApi.Controllers
         public async Task<ActionResult<User>> GetUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
+            var products = await _context.Products.Where(b => b.UserId == id).ToListAsync();
+
+            user.Products = products;
 
             if (user == null)
             {
@@ -83,6 +101,7 @@ namespace AspCoreApi.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
+             user.Password = "";
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
    
